@@ -9,6 +9,8 @@
 
 library(shiny)
 
+# UI
+
 # Define UI for application that draws a histogram
 ui <- shinyUI(fluidPage(
   
@@ -34,8 +36,30 @@ ui <- shinyUI(fluidPage(
   )
 ))
 
+#SERVER
+
 # Define server logic required to output table
 server <- shinyServer(function(input, output) {
+  
+  
+  #Converting the csv file to a dataframe 
+  
+  data <- reactive(function(){
+    
+    if (is.null(input$file)) {
+      # If user has not uploaded a file yet don't do anything
+      return(NULL)
+    } #Otherwise...
+  
+    #Assigning the file input to file1 so we can get the datapath for read.table
+    file1 <- input$file  
+    
+    read.table(file1$datapath, header= F, ",", stringsAsFactors = F)
+    
+  })
+  
+  
+  
   
   output$fileTable <- reactiveTable(function() {
     if (is.null(input$file)) {
@@ -47,16 +71,6 @@ server <- shinyServer(function(input, output) {
     
   })
   
-  output$dataTable <- reactiveTable(function(){
-    
-    if (is.null(input$file)) {
-      # If user has not uploaded a file yet don't do anything
-      return(NULL)
-    } #Otherwise...
-    
-    read.table(input$file, header= F, ",", stringsAsFactors = F)
-    
-  })
   
 })
 
