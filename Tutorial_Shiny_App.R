@@ -30,12 +30,13 @@ ui <- shinyUI(fluidPage(
   ), 
   
   # Main panel - plots go here
-  mainPanel(tableOutput("fileTable"))
+  mainPanel(tableOutput("dataTable"))
   )
 ))
 
 # Define server logic required to output table
 server <- shinyServer(function(input, output) {
+  
   output$fileTable <- reactiveTable(function() {
     if (is.null(input$file)) {
       # User has not uploaded a file yet
@@ -43,7 +44,20 @@ server <- shinyServer(function(input, output) {
     }
     
     input$file
+    
   })
+  
+  output$dataTable <- reactiveTable(function(){
+    
+    if (is.null(input$file)) {
+      # If user has not uploaded a file yet don't do anything
+      return(NULL)
+    } #Otherwise...
+    
+    read.table(input$file, header= F, ",", stringsAsFactors = F)
+    
+  })
+  
 })
 
 
