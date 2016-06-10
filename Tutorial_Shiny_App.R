@@ -42,26 +42,30 @@ ui <- shinyUI(fluidPage(
 server <- shinyServer(function(input, output) {
   
   
-  #Converting the csv file to a dataframe 
   
-  data <- reactive(function(){
+  #Converting the csv file to a dataframe
+  
+  data <- reactive({
+    #Assigning the file input to file1 so we can get the datapath for read.table
+    file1 <- input$file
     
     if (is.null(input$file)) {
       # If user has not uploaded a file yet don't do anything
       return(NULL)
-    } #Otherwise...
-  
-    #Assigning the file input to file1 so we can get the datapath for read.table
-    file1 <- input$file  
-    
-    read.table(file1$datapath, header= F, ",", stringsAsFactors = F)
+    }
+    else
+      
+      (read.table(file1$datapath,
+                  header = F,
+                  ",",
+                  stringsAsFactors = F))
     
   })
   
   
   
-  
-  output$fileTable <- reactiveTable(function() {
+  #This gives a summary of the file uploaded but NOT the data
+  output$filedf <- renderTable({
     if (is.null(input$file)) {
       # User has not uploaded a file yet
       return(NULL)
@@ -71,6 +75,15 @@ server <- shinyServer(function(input, output) {
     
   })
   
+  #This gives a summary of the data held in the uploaded file
+  output$dataTable <- renderTable({
+    if (is.null(data())) {
+    return(NULL)
+  } #else
+  
+  data()
+    
+  })
   
 })
 
