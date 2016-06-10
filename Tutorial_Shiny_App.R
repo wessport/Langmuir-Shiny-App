@@ -32,7 +32,7 @@ ui <- shinyUI(fluidPage(
   ), 
   
   # Main panel - plots go here
-  mainPanel(tableOutput("dataTable"))
+  mainPanel(tableOutput("tb"))
   )
 ))
 
@@ -75,13 +75,40 @@ server <- shinyServer(function(input, output) {
     
   })
   
-  #This gives a summary of the data held in the uploaded file
+  #This displays a table of the data held in the uploaded file
   output$dataTable <- renderTable({
     if (is.null(data())) {
     return(NULL)
   } #else
   
   data()
+    
+  })
+  
+  
+  #This gives a summary of the data held in the uploaded file
+  output$sum <- renderTable({
+    if (is.null(data())) {
+      return(NULL)
+    } #else
+    
+    summary(data())
+    
+  })
+  
+  
+  output$tb <- renderUI({
+    if (is.null(data()))
+      
+      h5("Feed me data")
+    
+    else
+      
+      tabsetPanel(
+        tabPanel("Data", tableOutput("dataTable")),
+        tabPanel("Data Summary", tableOutput("sum")),
+        tabPanel("File Info", tableOutput("filedf"))
+      )
     
   })
   
