@@ -66,21 +66,21 @@ server <- shinyServer(function(input, output) {
     file1 <- input$file
     
     if (is.null(file1)) {
-# If user has not uploaded a file yet don't do anything
+
       return(NULL)
     } else {
       
-      (read.table(
-        file1$datapath,
-        header = input$header,
-        sep = input$sep,
-        stringsAsFactors = F
-      ))}
-    
+      (read.table(file1$datapath,header = input$header,sep = input$sep,stringsAsFactors = F
+      ))} 
+  
   })
   
+ 
+    
   
-  # This cehcks to see if a file has been uploaded.
+  
+  
+  # This checks to see if a file has been uploaded.
   # It's evaluating the statement: There is no uploaded data. 
   # If that's true, it retruns the value T.  
   
@@ -125,7 +125,17 @@ server <- shinyServer(function(input, output) {
     
   })
   
-
+  
+  
+# GRAPHS
+  
+ 
+  
+ # output$graph <- renderPlot()
+  
+  
+  
+# This generates the tab panel
     
   output$tb <- renderUI({
     if (is.null(data())) {
