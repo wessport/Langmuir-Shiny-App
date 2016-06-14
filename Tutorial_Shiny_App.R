@@ -29,9 +29,9 @@ ui <- shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(
       fileInput("file", label = "File Input", multiple = FALSE),
-      helpText("Default max. file size is 5 MB"),
+      helpText("CSV files only. Default max.file size is 5 MB."),
       tags$hr(),
-      h5(helpText("Does your data have headers?")),
+      h5(strong("Does your data have headers?")),
        checkboxInput(inputId = 'header', label = 'Header', value = FALSE),
       br(),
 
@@ -50,10 +50,10 @@ radioButtons(inputId = 'sep', label = 'Separator', choices = c(Comma=',',Semicol
           estimate parameter values such as maximum sorption 
           and binding affinity."),
        br(),
-       p("Begin by uploading a csv file 
+       p("Begin by uploading a", strong("csv"), "file 
           of your dataset to the left. If your dataset has headers 
           be sure to check the header option. If uploading a csv
-          file that is not comma separated, ensure to check 
+          file that is", strong("not"), "comma separated, ensure to check 
           the appropriate delimiter option as well."),  
        br(),
        p("To return to this page, simply reload your web browser.")
