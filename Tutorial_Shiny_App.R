@@ -40,23 +40,9 @@ radioButtons(inputId = 'sep', label = 'Separator', choices = c(Comma=',',Semicol
 # Main panel - plots go here
     mainPanel(
        
-       (uiOutput("tb")),
+       (uiOutput("tb"))
        
-       h3("Welcome!", style = "color:blue"),
-       br(),
-       p("This app is intended to facilitate the generation 
-          of sorption isotherms and to fit sorption data 
-          to the Langmuir equation. It can also be used to 
-          estimate parameter values such as maximum sorption 
-          and binding affinity."),
-       br(),
-       p("Begin by uploading a", strong("csv"), "file 
-          of your dataset to the left. If your dataset has headers 
-          be sure to check the header option. If uploading a csv
-          file that is", strong("not"), "comma separated, ensure to check 
-          the appropriate delimiter option as well."),  
-       br(),
-       p("To return to this page, simply reload your web browser.")
+      
        
     )
   )
@@ -68,14 +54,16 @@ radioButtons(inputId = 'sep', label = 'Separator', choices = c(Comma=',',Semicol
 
 # Define server logic required to output table
 server <- shinyServer(function(input, output) {
-  #Converting the csv file to a dataframe
   
+  
+#Converting the csv file to a dataframe
   data <- reactive({
-    #Assigning the file input to file1 so we can get the datapath for read.table
+    
+#Assigning the file input to file1 so we can get the datapath for read.table
     file1 <- input$file
     
     if (is.null(file1)) {
-      # If user has not uploaded a file yet don't do anything
+# If user has not uploaded a file yet don't do anything
       return(NULL)
     } else {
       
@@ -138,6 +126,42 @@ server <- shinyServer(function(input, output) {
       )}
     
   })
+  
+  
+#This the landing page
+  
+  output$lp <- renderUI({
+    if (is.null(data())) {
+      
+    mainPanel( 
+      h3("Welcome!", style = "color:blue"),
+      br(),
+      p("This app is intended to facilitate the generation
+          of sorption isotherms and to fit sorption data
+          to the Langmuir equation. It can also be used to
+          estimate parameter values such as maximum sorption
+          and binding affinity."),
+      br(),
+      p("Begin by uploading a", strong("csv"), "file
+          of your dataset to the left. If your dataset has headers
+          be sure to check the header option. If uploading a csv
+          file that is", strong("not"), "comma separated, ensure to check
+          the appropriate delimiter option as well."),
+      br(),
+      p("To return to this page, simply reload your web browser.")
+    )
+      
+     
+      
+    } else {
+      
+       
+      
+      }
+    
+  })
+  
+  
   
 })
 
