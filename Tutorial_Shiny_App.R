@@ -21,7 +21,7 @@ library(shiny)
 ui <- shinyUI(fluidPage(
   
   # Application title
-  titlePanel(h1("My Shiny App", align = "center")),
+  titlePanel(h1("Langmuir Shiny App", align = "center")),
 
   headerPanel(h3("Import Data")),
 
@@ -40,9 +40,12 @@ radioButtons(inputId = 'sep', label = 'Separator', choices = c(Comma=',',Semicol
 # Main panel - plots go here
     mainPanel(
        
-       (uiOutput("tb"))
-       
+      # This is a conditonal statment which only displays 
+      # the landing page if a file has yet to be uploaded.
+     conditionalPanel("output.fileNotUploaded == T", uiOutput("lp")),
       
+     
+         uiOutput("tb")
        
     )
   )
@@ -76,6 +79,18 @@ server <- shinyServer(function(input, output) {
     
   })
   
+  
+  # This cehcks to see if a file has been uploaded.
+  # It's evaluating the statement: There is no uploaded data. 
+  # If that's true, it retruns the value T.  
+  
+  output$fileNotUploaded <- reactive({
+    if (is.null(data())) {
+      
+      return(T)
+    }
+      
+  })
   
   
   #This gives a summary of the file uploaded but NOT the data
@@ -161,7 +176,7 @@ server <- shinyServer(function(input, output) {
     
   })
   
-  
+
   
 })
 
