@@ -21,9 +21,9 @@ library(shiny)
 ui <- shinyUI(fluidPage(
   
   # Application title
-  titlePanel("My Shiny App"),
+  titlePanel(h1("My Shiny App", align = "center")),
 
-  headerPanel("File input test"),
+  headerPanel(h3("Import Data")),
 
 #   # Sidebar
   sidebarLayout(
@@ -39,9 +39,26 @@ radioButtons(inputId = 'sep', label = 'Separator', choices = c(Comma=',',Semicol
 
 # Main panel - plots go here
     mainPanel(
-          uiOutput("tb")
+       
+       (uiOutput("tb")),
+       
+       h3("Welcome!", style = "color:blue"),
+       br(),
+       p("This app is intended to facilitate the generation 
+          of sorption isotherms and to fit sorption data 
+          to the Langmuir equation. It can also be used to 
+          estimate parameter values such as maximum sorption 
+          and binding affinity."),
+       br(),
+       p("Begin by uploading a csv file 
+          of your dataset to the left. If your dataset has headers 
+          be sure to check the header option. If uploading a csv
+          file that is not comma separated, ensure to check 
+          the appropriate delimiter option as well."),  
+       br(),
+       p("To return to this page, simply reload your web browser.")
+       
     )
-
   )
 ))
 
@@ -105,16 +122,12 @@ server <- shinyServer(function(input, output) {
     
   })
   
-  landingPage <- ("Hello World")
-  
+
+    
   output$tb <- renderUI({
     if (is.null(data())) {
       
-      return(h5("FEED ME DATA"))
-       
-#helpText("This isn't the greatest song in the world. This is just a tribute!")
-    
-    
+      
     
    } else {
       
