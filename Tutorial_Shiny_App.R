@@ -1,16 +1,9 @@
-###############################################################    
-#                                                             #
-#                   LANGMUIR SHINY APP                        #
-#                 Developed by Wes Porter                     #
-#                                                             #
-#            This app is intended to facilitate               #
-#    the fitting of sorption data to the Langmuir equation.   #
-#                                                             #
-# Find out more about building applications with Shiny here:  #
-#                                                             #
-#                http://shiny.rstudio.com/                    #
-#                                                             #
-###############################################################
+#
+#
+# Find out more about building applications with Shiny here:
+#
+#    http://shiny.rstudio.com/
+#
 
 
 library(shiny)
