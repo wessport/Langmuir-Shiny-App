@@ -60,15 +60,14 @@ server <- shinyServer(function(input, output) {
     if (is.null(file1)) {
       # If user has not uploaded a file yet don't do anything
       return(NULL)
-    }
-    else
+    } else {
       
       (read.table(
         file1$datapath,
         header = input$header,
         sep = input$sep,
         stringsAsFactors = F
-      ))
+      ))}
     
   })
   
@@ -79,9 +78,9 @@ server <- shinyServer(function(input, output) {
     if (is.null(input$file)) {
       # User has not uploaded a file yet
       return(NULL)
-    }
+    } else {
     
-    input$file
+    input$file}
     
   })
   
@@ -89,9 +88,9 @@ server <- shinyServer(function(input, output) {
   output$dataTable <- renderTable({
     if (is.null(data())) {
       return(NULL)
-    } #else
+    } else {
     
-    data()
+    data()}
     
   })
   
@@ -100,25 +99,30 @@ server <- shinyServer(function(input, output) {
   output$sum <- renderTable({
     if (is.null(data())) {
       return(NULL)
-    } #else
+    } else {
     
-    summary(data())
+    summary(data())}
     
   })
   
+  landingPage <- ("Hello World")
   
   output$tb <- renderUI({
-    if (is.null(data()))
+    if (is.null(data())) {
       
-      h5("FEED ME DATA")
+      return(h5("FEED ME DATA"))
+       
+#helpText("This isn't the greatest song in the world. This is just a tribute!")
     
-    else
+    
+    
+   } else {
       
       tabsetPanel(
         tabPanel("Data", tableOutput("dataTable")),
         tabPanel("Data Summary", tableOutput("sum")),
         tabPanel("File Info", tableOutput("filedf"))
-      )
+      )}
     
   })
   
