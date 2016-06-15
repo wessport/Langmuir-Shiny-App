@@ -69,12 +69,16 @@ server <- shinyServer(function(input, output) {
 
       return(NULL)
     } 
-    
+    if (input$header == F){
     isolate({ 
       myData <- read.table(file1$datapath,header = input$header,sep = input$sep,stringsAsFactors = F) 
+      
+      ### Didn't work
+      
       colnames(myData) <- c("X","Y")
+      
       })
-    myData
+    myData} else {read.table(file1$datapath,header = input$header,sep = input$sep,stringsAsFactors = F)}
   })
   
  

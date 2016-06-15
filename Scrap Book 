@@ -25,9 +25,10 @@ X <- (x == T)
     }   
     
     
+X <- c(1,2,3,4,5,6,7,8,9,10)
+Y <- c(2,4,6,8,10,12,14,16,18,20)
     
-    
-    
+testData <- data.frame(X,Y, stringsAsFactors=F)  
     
     
     
