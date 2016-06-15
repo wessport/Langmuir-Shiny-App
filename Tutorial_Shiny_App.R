@@ -88,7 +88,7 @@ server <- shinyServer(function(input, output) {
   
   # This checks to see if a file has been uploaded.
   # It's evaluating the statement: There is no uploaded data. 
-  # If that's true, it retruns the value T.  
+  # If that's true, it returns the value T.  
   
   output$fileNotUploaded <- reactive({
     if (is.null(data())) {
@@ -136,8 +136,14 @@ server <- shinyServer(function(input, output) {
 # GRAPHS
   
  
-  
- # output$graph <- renderPlot()
+# Basic plot of sorption data  
+ output$graph <- renderPlot({
+   
+    plot(data(), 
+         main = "Sorption Isotherm",
+         xlab = "Equilibrium Conc. mg P/L",
+         ylab = "P sorbed mg P/kg")
+ })
   
   
   
@@ -151,9 +157,11 @@ server <- shinyServer(function(input, output) {
    } else {
       
       tabsetPanel(
-        tabPanel("Data", tableOutput("dataTable")),
-        tabPanel("Data Summary", tableOutput("sum")),
-        tabPanel("File Info", tableOutput("filedf"))
+        tabPanel(inputId="tab1",  "Data", tableOutput("dataTable")),
+        tabPanel(inputId="tab2", "Plot", plotOutput("graph")),
+        tabPanel(inputId="tab3", "Data Summary", tableOutput("sum")),
+        #tabPanel(inputId="tab4", "Residuals", plotOutput("resid")),
+        tabPanel(inputId="tab5", "File Info", tableOutput("filedf"))
       )}
     
   })
