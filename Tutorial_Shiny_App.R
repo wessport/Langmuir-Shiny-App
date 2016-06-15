@@ -73,8 +73,7 @@ server <- shinyServer(function(input, output) {
     isolate({ 
       myData <- read.table(file1$datapath,header = input$header,sep = input$sep,stringsAsFactors = F) 
       
-      ### Didn't work
-      
+
       colnames(myData) <- c("X","Y")
       
       })
@@ -135,14 +134,21 @@ server <- shinyServer(function(input, output) {
   
 # GRAPHS
   
- 
+
 # Basic plot of sorption data  
  output$graph <- renderPlot({
    
-    plot(data(), 
+   
+
+        plot(data(), 
          main = "Sorption Isotherm",
-         xlab = "Equilibrium Conc. mg P/L",
-         ylab = "P sorbed mg P/kg")
+         xlab = "Equilibrium Conc. mg/L",
+         ylab = "Sorbed mg/kg")
+     
+    Lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = 3000, k = 0.01), algorith = "port") 
+    
+    lines(data()$X,predict(Lang),col='blue')
+    
  })
   
   
