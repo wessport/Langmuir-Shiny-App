@@ -1,0 +1,34 @@
+#SCRAP BOOK
+
+X <- (x == T)
+
+ if (X == T ) {
+      
+    print(h5("Tribute"))
+    print("hello")
+       
+    } else {
+    
+    print("This isn't the greatest song in the world. This is just a tribute!")}
+    
+    
+    
+    
+ if (is.null(data())) {
+      
+    uiOutput("lp")
+       
+    } else {
+    
+    uiOutput("tb")
+    
+    }   
+    
+    
+    
+    
+    
+    
+    
+    
+    
