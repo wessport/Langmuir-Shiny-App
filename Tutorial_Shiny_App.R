@@ -25,7 +25,7 @@ ui <- shinyUI(fluidPage(
 
   headerPanel(h3("Import Data")),
 
-#   # Sidebar
+  # Sidebar
   sidebarLayout(
     sidebarPanel(
       fileInput("file", label = "File Input", multiple = FALSE),
@@ -154,6 +154,24 @@ QmaxE2 <- reactive({Qmax() - QmaxSE()})
 
 k <- reactive({langReport()$coefficients [2,1]})
 kSE <- reactive({langReport()$coefficients [2,2]})
+
+
+#Log Transforming Y
+
+
+
+logData <- reactive({
+  
+  logData <- data()
+  absY <- abs(data()$Y)
+  logData$Y <- log(absY)
+  
+  })
+
+
+
+
+
    
 # Langmuir Output   
 
@@ -162,7 +180,16 @@ output$Qmax <- renderText({
    
 output$k <- renderText({print(paste(c("Binding Coefficient = ",k()), collapse = ""))})
 
- 
+
+
+# LOG Langmuir Output
+
+output$graphLogLang <- renderPlot ({
+  
+  plot(logData())
+  
+})
+
     
 # GRAPHS
   
@@ -200,17 +227,14 @@ output$k <- renderText({print(paste(c("Binding Coefficient = ",k()), collapse = 
  urd <- reactive({mrd()+sdrd()})
  lrd <- reactive({mrd()-sdrd()})
  
- #
- # dtrd <- reactive({dtrd <- data.table(1:length(rd()),rd(),stringsAsFactors = F)})
- # 
- # dtrd <- reactive({colnames(dtrd()) <- c("Residuals", "Index")})
  
+ # Residual Plot
  
  output$graphResid <- renderPlot({
    
   plot(rd(),
        main = "Residuals",
-       xlab = "Observation",
+       xlab = "Observations",
        ylab = "Residuals")
    
    abline(h=mrd(), lty=1)
@@ -254,7 +278,8 @@ output$k <- renderText({print(paste(c("Binding Coefficient = ",k()), collapse = 
   })
   
   
-#This the landing page
+  
+# LANDING PAGE
   
   output$lp <- renderUI({
     if (is.null(data())) {
