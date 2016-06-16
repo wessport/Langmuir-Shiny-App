@@ -48,7 +48,24 @@ testData <- data.frame(X,Y, stringsAsFactors=F)
   run <- floor((length(data$X))*(1/2)) - data[1,1]
   pK <- rise/run
   
-  if()
+
+#Finally fixing the lang formula error
   
+langFormula <- as.formula(Y ~ (Q*k*X)/(1+(k*X))
+
+Lang <- nls(formula = langFormula,  data = data, start = list(Q = 3000, k = 0.01),algorith = "port")
+
+
     
+   
+   
+langFormula <- reactive({langFormula <- as.formula(Y ~ (Q*k*X)/1+(k*X))})
+
+#Doesn't work
+lang <- reactive({lang <- nls(formula = langFormula(),  data = data(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
+ 
+#Works  
+lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
+
+ 
     

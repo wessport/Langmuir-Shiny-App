@@ -136,7 +136,14 @@ server <- shinyServer(function(input, output) {
 # LANGMUIR
 
 pQmax <- reactive ({pQmax <- max(data())})  
+
+# Need to add a pK
   
+# rise <- floor((length(data()$Y))*(1/2)) - data()[1,2]
+# run <- floor((length(data()$X))*(1/2)) - data()[1,1]
+#pK <- rise/run
+
+
 lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
 
 langReport <- reactive({langReport <- summary(lang())})
@@ -163,45 +170,64 @@ output$k <- renderText({print(paste(c("Binding Coefficient = ",k()), collapse = 
 # Basic plot of sorption data  
  output$graph <- renderPlot({
    
-   # pQmax <- max(data())
-   # 
-   # rise <- floor((length(data()$Y))*(1/2)) - data()[1,2]
-   # run <- floor((length(data()$X))*(1/2)) - data()[1,1]
-   #pK <- rise/run
-
     plot(data(), 
          main = input$title,
-         ylim=c(0, 10000),
-         xlab = "Equilibrium Conc. mg/L",
-         ylab = "Sorbed mg/kg")
+         ylim = c(0,input$yAxis),
+         xlab = input$xTitle,
+         ylab = input$yTitle)
      
-    #Lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = pQmax, k = 0.01), algorith = "port") 
-    
+
     lines(data()$X,predict(lang()),col='blue')
     
-    # langReport <- summary(Lang)
-    # 
-    # Qmax <- langReport$coefficients [1,1]
-    # QmaxSE <- langReport$coefficients [1,2]
-    # QmaxE1 <- Qmax + QmaxSE
-    # QmaxE2 <- Qmax - QmaxSE
-    # 
-    # k <- langReport$coefficients [2,1]
-    # kSE <- langReport$coefficients [2,2]
-    # 
-    # 
-    # abline(h=Qmax, lty=1)
-    # abline(h=QmaxE1, lty=2)
-    # abline(h=(QmaxE2), lty=2)
     
+    abline(h=Qmax(), lty=1)
+    abline(h=QmaxE1(), lty=2)
+    abline(h=QmaxE2(), lty=2)
+
     
     
  })
   
-  
+
+# RESIDUALS
+ 
+ rd <- reactive({rd <- as.numeric(resid(lang()))})
+ 
+
+ sdrd <- reactive({sd(rd())})
+ 
+ mrd <- reactive({as.numeric(median(rd()))})
+ urd <- reactive({mrd()+sdrd()})
+ lrd <- reactive({mrd()-sdrd()})
+ 
+ #
+ # dtrd <- reactive({dtrd <- data.table(1:length(rd()),rd(),stringsAsFactors = F)})
+ # 
+ # dtrd <- reactive({colnames(dtrd()) <- c("Residuals", "Index")})
+ 
+ 
+ output$graphResid <- renderPlot({
+   
+  plot(rd(),
+       main = "Residuals",
+       xlab = "Observation",
+       ylab = "Residuals")
+   
+   abline(h=mrd(), lty=1)
+   abline(h=urd(), lty=2)
+   abline(h=lrd(), lty=2)
+   text(2,(mrd() + urd()/2), "Median")
+   text(2,(urd() + urd()/2), "+ SD")
+   text(2,(lrd() + mrd()/2), "- SD")
+
+ })
+   
+   
+   
+ 
  
   
-# This generates the tab panel
+# TAB PANEL
     
   output$tb <- renderUI({
     if (is.null(data())) {
@@ -214,10 +240,14 @@ output$k <- renderText({print(paste(c("Binding Coefficient = ",k()), collapse = 
         tabPanel(inputId="tab1",  "Data", tableOutput("dataTable")),
         tabPanel(inputId="tab2", "Plot", 
                  textInput(inputId="title", label = "Write a Title", value = "Sorption Isotherm"), 
-                 plotOutput("graph"), textOutput("Qmax"), textOutput("k")),
-        
+                 textInput(inputId="xTitle", label = "X-Axis Label", value = "Equilibrium Conc. mg/L"),
+                 textInput(inputId="yTitle", label = "Y-Axis Label", value = "Sorbed mg/kg"),
+                 plotOutput("graph"),
+                 sliderInput("yAxis", "Adjust Y-Axis", 0, 10000, 4000),
+                 textOutput("Qmax"), 
+                 textOutput("k")),
+        tabPanel(inputId="tab4", "Residuals", plotOutput("graphResid")),
         tabPanel(inputId="tab3", "Data Summary", tableOutput("sum")),
-        #tabPanel(inputId="tab4", "Residuals", plotOutput("resid")),
         tabPanel(inputId="tab5", "File Info", tableOutput("filedf"))
       )}
     
