@@ -130,28 +130,76 @@ server <- shinyServer(function(input, output) {
     
   })
   
+ 
   
   
+# LANGMUIR
+
+pQmax <- reactive ({pQmax <- max(data())})  
+  
+lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
+
+langReport <- reactive({langReport <- summary(lang())})
+Qmax <- reactive({Qmax <- langReport()$coefficients [1,1]}) 
+QmaxSE <- reactive({QmaxSE <-langReport()$coefficients [1,2]})
+QmaxE1 <- reactive({Qmax() + QmaxSE()})
+QmaxE2 <- reactive({Qmax() - QmaxSE()})
+
+k <- reactive({langReport()$coefficients [2,1]})
+kSE <- reactive({langReport()$coefficients [2,2]})
+   
+# Langmuir Output   
+
+output$Qmax <- renderText({
+  print(paste(c("Maximum Sorption = ",Qmax()), collapse = ""))})
+   
+output$k <- renderText({print(paste(c("Binding Coefficient = ",k()), collapse = ""))})
+
+ 
+    
 # GRAPHS
   
 
 # Basic plot of sorption data  
  output$graph <- renderPlot({
    
-   
+   # pQmax <- max(data())
+   # 
+   # rise <- floor((length(data()$Y))*(1/2)) - data()[1,2]
+   # run <- floor((length(data()$X))*(1/2)) - data()[1,1]
+   #pK <- rise/run
 
-        plot(data(), 
-         main = "Sorption Isotherm",
+    plot(data(), 
+         main = input$title,
+         ylim=c(0, 10000),
          xlab = "Equilibrium Conc. mg/L",
          ylab = "Sorbed mg/kg")
      
-    Lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = 3000, k = 0.01), algorith = "port") 
+    #Lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = pQmax, k = 0.01), algorith = "port") 
     
-    lines(data()$X,predict(Lang),col='blue')
+    lines(data()$X,predict(lang()),col='blue')
+    
+    # langReport <- summary(Lang)
+    # 
+    # Qmax <- langReport$coefficients [1,1]
+    # QmaxSE <- langReport$coefficients [1,2]
+    # QmaxE1 <- Qmax + QmaxSE
+    # QmaxE2 <- Qmax - QmaxSE
+    # 
+    # k <- langReport$coefficients [2,1]
+    # kSE <- langReport$coefficients [2,2]
+    # 
+    # 
+    # abline(h=Qmax, lty=1)
+    # abline(h=QmaxE1, lty=2)
+    # abline(h=(QmaxE2), lty=2)
+    
+    
     
  })
   
   
+ 
   
 # This generates the tab panel
     
@@ -164,7 +212,10 @@ server <- shinyServer(function(input, output) {
       
       tabsetPanel(
         tabPanel(inputId="tab1",  "Data", tableOutput("dataTable")),
-        tabPanel(inputId="tab2", "Plot", plotOutput("graph")),
+        tabPanel(inputId="tab2", "Plot", 
+                 textInput(inputId="title", label = "Write a Title", value = "Sorption Isotherm"), 
+                 plotOutput("graph"), textOutput("Qmax"), textOutput("k")),
+        
         tabPanel(inputId="tab3", "Data Summary", tableOutput("sum")),
         #tabPanel(inputId="tab4", "Residuals", plotOutput("resid")),
         tabPanel(inputId="tab5", "File Info", tableOutput("filedf"))

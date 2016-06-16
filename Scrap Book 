@@ -1,4 +1,4 @@
-#SCRAP BOOK
+ #SCRAP BOOK
 
 X <- (x == T)
 
@@ -30,6 +30,25 @@ Y <- c(2,4,6,8,10,12,14,16,18,20)
     
 testData <- data.frame(X,Y, stringsAsFactors=F)  
     
-    
+  
+  pK <- 
+  
+  rise / run = change in Y / change in x 
+  
+  median(data$Y) - data[1,2]
+  median(data$X) - data[1,1]
+  
+  
+  headers <- colnames(data)
+  Xhd <- headers[1]
+  Yhd <- headers[2]
+  paste(c(data$,Yhd), collapse="")
+  
+  rise <- floor((length(data$Y))*(1/2)) - data[1,2]
+  run <- floor((length(data$X))*(1/2)) - data[1,1]
+  pK <- rise/run
+  
+  if()
+  
     
     
