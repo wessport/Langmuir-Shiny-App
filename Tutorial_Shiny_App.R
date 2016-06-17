@@ -139,21 +139,65 @@ pQmax <- reactive ({pQmax <- max(data())})
 
 # Need to add a pK
   
-# rise <- floor((length(data()$Y))*(1/2)) - data()[1,2]
-# run <- floor((length(data()$X))*(1/2)) - data()[1,1]
-#pK <- rise/run
+pK <- reactive({
+  
+  a <- data()$X / data()$Y
+  b <- (data()$X)^2
+  c <- data()$X
+  d <- a*c
+  e <- length(d)
+  
+  sa <- sum(a)
+  sb <- sum(b)
+  sc <- sum(c)
+  sd <- sum(d)
+  
+  a <- sa
+  b <- sb
+  c <- sc
+  d <- sd
+  
+  pK <- 1 / ((((a*b)-(c*d))/((e*b)-((c)^2)))*pQmax())
+  
+  pK
+  
+})
 
 
-lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
+lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = pQmax(), k = pK()), algorith = "port")})  
 
 langReport <- reactive({langReport <- summary(lang())})
-Qmax <- reactive({Qmax <- langReport()$coefficients [1,1]}) 
+Qmax <- reactive({Qmax <- langReport()$coefficients [1,1]
+                  Qmax <- round(Qmax, digits = 4)
+}) 
 QmaxSE <- reactive({QmaxSE <-langReport()$coefficients [1,2]})
 QmaxE1 <- reactive({Qmax() + QmaxSE()})
 QmaxE2 <- reactive({Qmax() - QmaxSE()})
 
-k <- reactive({langReport()$coefficients [2,1]})
+k <- reactive({k <- langReport()$coefficients [2,1]
+               k <- round(k, digits = 4)})
 kSE <- reactive({langReport()$coefficients [2,2]})
+
+# Goodness of Fit Statistic ( E )
+
+E <- reactive({
+  
+  f <- (data()$Y - mean(data()$Y))^2
+  sf <- sum(f)
+  f <- sf
+
+
+  g <- (data()$Y - predict(lang()))^2
+  sg <- sum(g)
+  g <- sg
+
+  E <- (1 - (g/f))
+
+  E <- round(E, digits = 4)
+  
+  E
+
+})
 
 
 #Log Transforming Y
@@ -179,6 +223,8 @@ output$Qmax <- renderText({
   print(paste(c("Maximum Sorption = ",Qmax()), collapse = ""))})
    
 output$k <- renderText({print(paste(c("Binding Coefficient = ",k()), collapse = ""))})
+
+output$E <- renderText({print(paste(c("Goodness of Fit = ",E()), collapse = ""))})
 
 
 
@@ -261,16 +307,18 @@ output$graphLogLang <- renderPlot ({
    } else {
       
       tabsetPanel(
-        tabPanel(inputId="tab1",  "Data", tableOutput("dataTable")),
         tabPanel(inputId="tab2", "Plot", 
                  textInput(inputId="title", label = "Write a Title", value = "Sorption Isotherm"), 
                  textInput(inputId="xTitle", label = "X-Axis Label", value = "Equilibrium Conc. mg/L"),
                  textInput(inputId="yTitle", label = "Y-Axis Label", value = "Sorbed mg/kg"),
                  plotOutput("graph"),
                  sliderInput("yAxis", "Adjust Y-Axis", 0, 10000, 4000),
+                 checkboxInput(inputId = 'logTrans', label = 'Log Transform Y-Axis', value = FALSE),
                  textOutput("Qmax"), 
-                 textOutput("k")),
-        tabPanel(inputId="tab4", "Residuals", plotOutput("graphResid")),
+                 textOutput("k"),
+                 textOutput("E")),
+        tabPanel(inputId="tab4", "Residuals of Fit", plotOutput("graphResid")),
+        tabPanel(inputId="tab1",  "Data", tableOutput("dataTable")),
         tabPanel(inputId="tab3", "Data Summary", tableOutput("sum")),
         tabPanel(inputId="tab5", "File Info", tableOutput("filedf"))
       )}

@@ -68,4 +68,59 @@ lang <- reactive({lang <- nls(formula = langFormula(),  data = data(), start = l
 lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
 
  
+ 
+ 
+ loess_fit <- loess(Y ~ X, data)
+ plot(data)
+ lines(data$X, predict(loess_fit), col = "blue")
+ 
+ px <- predict(loess_fit)
+ 
+ #Predicting  K =pK
+ 
+ a <- data$X / data$Y
+ b <- (data$X)^2
+ c <- data$X
+ d <- a*c
+ e <- length(d)
+ 
+ sa <- sum(a)
+ sb <- sum(b)
+ sc <- sum(c)
+ sd <- sum(d)
+ 
+ a <- sa
+ b <- sb
+ c <- sc
+ d <- sd
+ 
+ pK <- 1 / ((((a*b)-(c*d))/((e*b)-((c)^2)))*pQmax)
+ 
+ 
+ # Goodness of Fit Statistic ( E )
+ 
+ f <- (data$Y - mean(data$Y))^2
+ sf <- sum(f)
+ f <- sf
+ 
+ 
+ g <- (data$Y - predict(Lang))^2
+ sg <- sum(g)
+ g <- sg
+ 
+ E <- (1 - (g/f))
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
     
