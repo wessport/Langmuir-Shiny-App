@@ -96,6 +96,8 @@ lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), s
  
  pK <- 1 / ((((a*b)-(c*d))/((e*b)-((c)^2)))*pQmax)
  
+ if(pK < 0) {pK <- 0.01}
+ 
  
  # Goodness of Fit Statistic ( E )
  

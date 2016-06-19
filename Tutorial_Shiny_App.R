@@ -137,34 +137,36 @@ server <- shinyServer(function(input, output) {
 
 pQmax <- reactive ({pQmax <- max(data())})  
 
-# Need to add a pK
-  
+# Predicted k
+
 pK <- reactive({
-  
+
   a <- data()$X / data()$Y
   b <- (data()$X)^2
   c <- data()$X
   d <- a*c
   e <- length(d)
-  
+
   sa <- sum(a)
   sb <- sum(b)
   sc <- sum(c)
   sd <- sum(d)
-  
+
   a <- sa
   b <- sb
   c <- sc
   d <- sd
-  
+
   pK <- 1 / ((((a*b)-(c*d))/((e*b)-((c)^2)))*pQmax())
-  
+
+  if(pK < 0) {pK <- 0.01}
+
   pK
-  
+
 })
 
 
-lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = pQmax(), k = pK()), algorith = "port")})  
+lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
 
 langReport <- reactive({langReport <- summary(lang())})
 Qmax <- reactive({Qmax <- langReport()$coefficients [1,1]
@@ -241,8 +243,9 @@ output$graphLogLang <- renderPlot ({
   
 
 # Basic plot of sorption data  
- output$graph <- renderPlot({
-   
+
+plotIsotherm <- function(){
+  
     plot(data(), 
          main = input$title,
          ylim = c(0,input$yAxis),
@@ -259,7 +262,13 @@ output$graphLogLang <- renderPlot ({
 
     
     
- })
+ }
+
+output$graph <- renderPlot ({
+  
+  print(plotIsotherm())
+  
+})
   
 
 # RESIDUALS
@@ -292,7 +301,15 @@ output$graphLogLang <- renderPlot ({
 
  })
    
-   
+ # Downloading Isotherm Plot
+ 
+ output$downloadPlot <- downloadHandler(
+   filename = paste(input$title, " ", date(),".png", sep =""),
+   content = function(file) {
+     png(file)
+     plotIsotherm()
+     dev.off()
+   })    
    
  
  
@@ -316,7 +333,8 @@ output$graphLogLang <- renderPlot ({
                  checkboxInput(inputId = 'logTrans', label = 'Log Transform Y-Axis', value = FALSE),
                  textOutput("Qmax"), 
                  textOutput("k"),
-                 textOutput("E")),
+                 textOutput("E"),
+                 downloadButton("downloadPlot", "Download Plot as PNG")),
         tabPanel(inputId="tab4", "Residuals of Fit", plotOutput("graphResid")),
         tabPanel(inputId="tab1",  "Data", tableOutput("dataTable")),
         tabPanel(inputId="tab3", "Data Summary", tableOutput("sum")),
