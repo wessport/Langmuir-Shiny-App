@@ -45,10 +45,11 @@ radioButtons(inputId = 'sep', label = 'Separator', choices = c(Comma=',',Semicol
      conditionalPanel("output.fileNotUploaded == T", uiOutput("lp")),
       
      
+      
          uiOutput("tb")
        
     )
-  )
+   )
 ))
 
 

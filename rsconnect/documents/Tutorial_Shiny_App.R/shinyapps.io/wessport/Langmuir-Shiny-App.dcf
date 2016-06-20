@@ -1,0 +1,10 @@
+name: Langmuir-Shiny-App
+account: wessport
+server: shinyapps.io
+appId: 109493
+bundleId: 484126
+url: https://wessport.shinyapps.io/Langmuir-Shiny-App/
+when: 1466381664.26901
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Scrap Book
