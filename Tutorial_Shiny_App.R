@@ -111,32 +111,31 @@ server <- shinyServer(function(input, output) {
     
   })
 
-  test1 <- reactive({1})
+  exampleCalled <- reactive({
+    
+    if (input$example == 0)
+      return(NULL) else {input$example}
+    
+    
+  })
+
+  test <- reactive({exampleCalled()})
   
-  test2 <- eventReactive(input$example, {1})
   
-  test3 <- reactive({test1()+test2()})
-  
-  output$test <- reactive({test3()})
+  output$test <- reactive({test()})
   
   #Converting the uploaded csv file to a dataframe
   data <- reactive({
     
     #Assigning the file input to file1 so we can get the datapath for read.table
   
-    file1<- if( 1 == 1){input$file}
+    file1 <- input$file
     
     if (is.null(file1)) {
       
       return(NULL)
     
       } else {
-      
-      #file1<- if(exampleCalled !=1) {input$file} else{1}
-        
-      if(file1 == 1) {myData <- exampleData()} else {
-      
-      
       
     if (input$header == F){
       isolate({ 
@@ -150,8 +149,7 @@ server <- shinyServer(function(input, output) {
         
                     colnames(myData) <- c("X","Y")
       
-                    myData }  } }
-    
+                    myData } }
     
   })
   
