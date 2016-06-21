@@ -127,4 +127,15 @@ lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), s
  
  
  
+ exData <- (
+ 
+  test <- 
+  
+  test2<- 1
+ 
+ 
+ )
+  
+  
+  
     
