@@ -111,18 +111,7 @@ server <- shinyServer(function(input, output) {
     
   })
 
-  exampleCalled <- reactive({
-    
-    if (input$example == 0)
-      return(NULL) else {input$example}
-    
-    
-  })
-
-  test <- reactive({exampleCalled()})
   
-  
-  output$test <- reactive({test()})
   
   #Converting the uploaded csv file to a dataframe
   data <- reactive({
@@ -133,7 +122,7 @@ server <- shinyServer(function(input, output) {
     
     if (is.null(file1)) {
       
-      return(NULL)
+      if(is.null(input$example)){return(NULL)} else { if(input$example){myData<-exampleData()}}
     
       } else {
       
@@ -173,7 +162,6 @@ server <- shinyServer(function(input, output) {
   #Displays plot once data has been uploaded
   output$dataReady <- reactive({
     return(data())
-    
   })
   
   
