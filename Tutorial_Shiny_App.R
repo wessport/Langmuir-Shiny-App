@@ -81,12 +81,13 @@ ui <- shinyUI(fluidPage( theme = shinytheme("united"),
                                  textOutput("E"),
                                  downloadButton("downloadPlot", "Download Plot as PNG")),
                         tabPanel(inputId="tab2", "Residuals of Fit", plotOutput("graphResid"),
-                                 "NOTE: Do your residuals resemble a 'fan-shape' i.e. is the vertical 
+                                 "NOTE: Do your residuals resemble a 'fan-shape' ?  i.e. is the vertical 
                                  distance between each data point and the median line increasing as 
                                  your observations increase? If so, you may want to consider a 
                                  log-transformation of your dependent varibles. 
                                  This can be done by returning to the 'plot tab' and selecting the  
-                                 'log-transform' checkbox underneath your plot."),
+                                 'log-transform' checkbox underneath your plot.", 
+                                 downloadButton("downloadResidPlot", "Download Plot as PNG")),
                         
                         tabPanel(inputId="tab3",  "Data", tableOutput("dataTable")),
                         tabPanel(inputId="tab4", "Data Summary", tableOutput("sum")),
@@ -357,6 +358,15 @@ server <- shinyServer(function(input, output) {
     
   })
   
+  # Downloading Isotherm Plot
+  
+  output$downloadPlot <- downloadHandler(
+    filename = paste(input$title, " ", date(),".png", sep =""),
+    content = function(file) {
+      png(file)
+      plotIsotherm()
+      dev.off()
+    })    
   
   # RESIDUALS
   
@@ -370,9 +380,11 @@ server <- shinyServer(function(input, output) {
   lrd <- reactive({mrd()-sdrd()})
   
   
+ 
+  
   # Residual Plot
   
-  output$graphResid <- renderPlot({
+  plotResid <- function(){
     
     plot(rd(),
          main = "Residuals",
@@ -386,19 +398,20 @@ server <- shinyServer(function(input, output) {
     text(2,(urd() + urd()/2), "+ SD")
     text(2,(lrd() + mrd()/2), "- SD")
     
-  })
+  }
   
-  # Downloading Isotherm Plot
+  output$graphResid <- renderPlot({print(plotResid())})
   
-  output$downloadPlot <- downloadHandler(
-    filename = paste(input$title, " ", date(),".png", sep =""),
+  
+  # Downloading Residuals Plot
+  
+  output$downloadResidPlot <- downloadHandler(
+    filename = paste("Plot of Residuals", " ", date(),".png", sep =""),
     content = function(file) {
       png(file)
-      plotIsotherm()
+      plotResid()
       dev.off()
     })    
-  
-  
   
   
   # TAB PANEL
