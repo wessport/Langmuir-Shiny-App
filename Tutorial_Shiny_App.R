@@ -84,7 +84,16 @@ ui <- shinyUI(fluidPage( theme = shinytheme("united"),
                         tabPanel(inputId="tab2", "Residuals of Fit", plotOutput("graphResid")),
                         tabPanel(inputId="tab3",  "Data", tableOutput("dataTable")),
                         tabPanel(inputId="tab4", "Data Summary", tableOutput("sum")),
-                        tabPanel(inputId="tab5", "File Info", tableOutput("filedf"))
+                        tabPanel(inputId="tab5", "File Info", tableOutput("filedf")),
+                        tabPanel(inputId="tab6", "App Credits", 
+                                 "This app is a direct result of the encouragement and support of my mentor, 
+                                  Melanie Mayes. <br>
+                                  The inspiration of this app can be attributed to the 2007 publication 
+                                  'On the Use of Linearized Langmuir Equations' by Bolster & Hornberger. 
+                                  The theory behind fitting a Langmuir model to sorption data, as well as 
+                                  the statistics behind the Goodness-of-Fit Measurement, can be understood 
+                                  in more detail in their writings."
+                                 )
                         
                                 )
                       )
