@@ -63,7 +63,6 @@ ui <- shinyUI(fluidPage( theme = shinytheme("united"),
                       p("Click the button below to try out an example!"),
                       br(),
                       actionButton("example", "Example Sorption Data"),
-                      verbatimTextOutput("test"),
                       br(),
                       br(),
                       p("To return to this page, simply reload your web browser.")),
@@ -81,25 +80,31 @@ ui <- shinyUI(fluidPage( theme = shinytheme("united"),
                                  textOutput("k"),
                                  textOutput("E"),
                                  downloadButton("downloadPlot", "Download Plot as PNG")),
-                        tabPanel(inputId="tab2", "Residuals of Fit", plotOutput("graphResid")),
+                        tabPanel(inputId="tab2", "Residuals of Fit", plotOutput("graphResid"),
+                                 "NOTE: Do your residuals resemble a 'fan-shape' i.e. is the vertical 
+                                 distance between each data point and the median line increasing as 
+                                 your observations increase? If so, you may want to consider a 
+                                 log-transformation of your dependent varibles. 
+                                 This can be done by returning to the 'plot tab' and selecting the  
+                                 'log-transform' checkbox underneath your plot."),
+                        
                         tabPanel(inputId="tab3",  "Data", tableOutput("dataTable")),
                         tabPanel(inputId="tab4", "Data Summary", tableOutput("sum")),
                         tabPanel(inputId="tab5", "File Info", tableOutput("filedf")),
                         tabPanel(inputId="tab6", "App Credits", 
                                  "This app is a direct result of the encouragement and support of my mentor, 
-                                  Melanie Mayes. <br>
+                                  Melanie Mayes. 
                                   The inspiration of this app can be attributed to the 2007 publication 
                                   'On the Use of Linearized Langmuir Equations' by Bolster & Hornberger. 
                                   The theory behind fitting a Langmuir model to sorption data, as well as 
                                   the statistics behind the Goodness-of-Fit Measurement, can be understood 
                                   in more detail in their writings."
-                                 )
-                        
-                                )
-                      )
+               )
+             )
+           )
         )
       )
-     )
+    )
   )
 
 
