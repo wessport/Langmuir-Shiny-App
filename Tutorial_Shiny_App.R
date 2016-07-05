@@ -182,6 +182,8 @@ server <- shinyServer(function(input, output, session) {
   
   # TAB PANEL OUTPUTS
   
+  
+  # Changes Isotherm graph labels and y-axis dependent on log transform request
   observe({
     val1 <- max(pData()$Y) + 2*sd(pData()$Y)
     if(input$logTrans == T){
@@ -196,8 +198,6 @@ server <- shinyServer(function(input, output, session) {
   
   
   
-  
-  
   # This checks to see if a file has been uploaded.
   # It's evaluating the statement: There is no uploaded data. 
   # If that's true, it returns the value T.  
@@ -207,14 +207,12 @@ server <- shinyServer(function(input, output, session) {
     
   })
   
-  
   outputOptions(output, 'fileUploaded', suspendWhenHidden=FALSE)
   
   #Displays plot once data has been uploaded
   output$dataReady <- reactive({
     return(data())
   })
-  
   
   outputOptions(output, 'dataReady', suspendWhenHidden=FALSE)
   
@@ -228,9 +226,7 @@ server <- shinyServer(function(input, output, session) {
       input$file}
     
   })
-  
-  
-  
+   
   
   #This displays a table of the data held in the uploaded file
   output$dataTable <- renderTable({
@@ -253,9 +249,7 @@ server <- shinyServer(function(input, output, session) {
     
   })
   
-  
 
-  
   
   # LANGMUIR
   
@@ -288,8 +282,7 @@ server <- shinyServer(function(input, output, session) {
     pK
     
   })
-  
-  
+
   
   lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)), data = pData(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
   
@@ -306,7 +299,7 @@ server <- shinyServer(function(input, output, session) {
   kSE <- reactive({langReport()$coefficients [2,2]})
   
  
-   # Goodness of Fit Statistic ( E )
+# Goodness of Fit Statistic ( E )
   
   E <- reactive({
     
@@ -329,7 +322,6 @@ server <- shinyServer(function(input, output, session) {
   
 
   
-  
   # Langmuir Output   
   
   output$Qmax <- renderText({
@@ -345,7 +337,6 @@ server <- shinyServer(function(input, output, session) {
   
   
   # GRAPHS
-  
   
   # Basic plot of sorption data  
   
@@ -388,7 +379,10 @@ server <- shinyServer(function(input, output, session) {
       plotIsotherm()
       dev.off()
     })    
+ 
   
+  
+   
   # RESIDUALS
   
   rd <- reactive({rd <- as.numeric(resid(lang()))})
@@ -399,9 +393,7 @@ server <- shinyServer(function(input, output, session) {
   mrd <- reactive({as.numeric(median(rd()))})
   urd <- reactive({mrd()+sdrd()})
   lrd <- reactive({mrd()-sdrd()})
-  
-  
- 
+
   
   # Residual Plot
   
@@ -435,12 +427,12 @@ server <- shinyServer(function(input, output, session) {
     })    
   
   
+  
+  
   # TAB PANEL
   
   output$tb <- renderUI({
     if (is.null(data())) {
-      
-      
       
     } else {
       
@@ -463,11 +455,6 @@ server <- shinyServer(function(input, output, session) {
       )}
     
   })
-  
-  
-  
-  
-  
   
 })
 
