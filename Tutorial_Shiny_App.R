@@ -16,6 +16,7 @@
 library(shiny)
 library(shinythemes)
 
+
 # UI
 
 # Define UI for application 
@@ -113,7 +114,7 @@ ui <- shinyUI(fluidPage( theme = shinytheme("united"),
 #SERVER
 
 # Define server logic required to output table
-server <- shinyServer(function(input, output) {
+server <- shinyServer(function(input, output, session) {
   
   # Example Data
   exampleData <- reactive({
@@ -172,7 +173,7 @@ server <- shinyServer(function(input, output) {
   
   # Provisionary Data 
   pData <- reactive({
-    if(input$logTrans == F){data()} else{logData()} 
+    if(input$logTrans == F){data()} else {logData()} 
   })
   
   
@@ -180,6 +181,20 @@ server <- shinyServer(function(input, output) {
   
   
   # TAB PANEL OUTPUTS
+  
+  observe({
+    val1 <- max(pData()$Y) + 2*sd(pData()$Y)
+    if(input$logTrans == T){
+    updateSliderInput(session, "yAxis", value = val1)} else {updateSliderInput(session, "yAxis", value = val1)}
+    })
+  
+  observe({
+    val2 <- "Sorbed log(mg/kg)"
+    if(input$logTrans == T){
+      updateTextInput(session, "yTitle", value = val2)} else {updateTextInput(session, "yTitle", value = "Sorbed mg/kg")}
+  })
+  
+  
   
   
   
@@ -240,12 +255,6 @@ server <- shinyServer(function(input, output) {
   
   
 
-  
-  
-  
-  
-  
-  
   
   
   # LANGMUIR
