@@ -234,7 +234,7 @@ server <- shinyServer(function(input, output) {
       return(NULL)
     } else {
       
-      summary(data())}
+      summary(pData())}
     
   })
   
@@ -250,15 +250,15 @@ server <- shinyServer(function(input, output) {
   
   # LANGMUIR
   
-  pQmax <- reactive ({pQmax <- max(data())})  
+  pQmax <- reactive ({pQmax <- max(pData())})  
   
   # Predicted k
   
   pK <- reactive({
     
-    a <- data()$X / data()$Y
-    b <- (data()$X)^2
-    c <- data()$X
+    a <- pData()$X / pData()$Y
+    b <- (pData()$X)^2
+    c <- pData()$X
     d <- a*c
     e <- length(d)
     
@@ -282,7 +282,7 @@ server <- shinyServer(function(input, output) {
   
   
   
-  lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)), data = data(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
+  lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)), data = pData(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
   
   langReport <- reactive({langReport <- summary(lang())})
   Qmax <- reactive({Qmax <- langReport()$coefficients [1,1]
@@ -301,12 +301,12 @@ server <- shinyServer(function(input, output) {
   
   E <- reactive({
     
-    f <- (data()$Y - mean(data()$Y))^2
+    f <- (pData()$Y - mean(pData()$Y))^2
     sf <- sum(f)
     f <- sf
     
     
-    g <- (data()$Y - predict(lang()))^2
+    g <- (pData()$Y - predict(lang()))^2
     sg <- sum(g)
     g <- sg
     
@@ -324,21 +324,15 @@ server <- shinyServer(function(input, output) {
   # Langmuir Output   
   
   output$Qmax <- renderText({
-    print(paste(c("Maximum Sorption = ",Qmax()), collapse = ""))})
+    Qmax <- if (input$logTrans == F){Qmax()} else {exp(Qmax())}
+    Qmax <- round(Qmax, digits = 4)
+    print(paste(c("Maximum Sorption = ", Qmax, collapse = "")))})
   
   output$k <- renderText({print(paste(c("Binding Coefficient = ",k()), collapse = ""))})
   
   output$E <- renderText({print(paste(c("Goodness of Fit = ",E()), collapse = ""))})
   
-  
-  
-  # LOG Langmuir Output
-  
-  output$graphLogLang <- renderPlot ({
-    
-    plot(logData())
-    
-  })
+
   
   
   # GRAPHS
@@ -352,14 +346,14 @@ server <- shinyServer(function(input, output) {
       return(NULL)
     } else {
       
-      plot(data(), 
+      plot(pData(), 
            main = input$title,
            ylim = c(0,input$yAxis),
            xlab = input$xTitle,
            ylab = input$yTitle)
       
       
-      lines(data()$X,predict(lang()),col='blue')
+      lines(pData()$X,predict(lang()),col='blue')
       
       
       abline(h=Qmax(), lty=1)
