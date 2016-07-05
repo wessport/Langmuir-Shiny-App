@@ -75,7 +75,7 @@ ui <- shinyUI(fluidPage( theme = shinytheme("united"),
                                  textInput(inputId="yTitle", label = "Y-Axis Label", value = "Sorbed mg/kg"),
                                  plotOutput("graph"),
                                  sliderInput("yAxis", "Adjust Y-Axis", 0, 10000, 4000),
-                                 checkboxInput(inputId = 'logTrans', label = 'Log Transform Y-Axis', value = FALSE),
+                                 checkboxInput(inputId = 'logTrans', label = 'Log Transform Dependent Variable', value = FALSE),
                                  textOutput("Qmax"), 
                                  textOutput("k"),
                                  textOutput("E"),
@@ -159,6 +159,27 @@ server <- shinyServer(function(input, output) {
   
   
   
+  #Log Transforming Y If Requested
+  
+  logData <- reactive({
+    
+    logData <- data()
+    absY <- abs(data()$Y)
+    logData$Y <- log(absY)
+    logData
+    
+  })
+  
+  # Provisionary Data 
+  pData <- reactive({
+    if(input$logTrans == F){data()} else{logData()} 
+  })
+  
+  
+  
+  
+  
+  # TAB PANEL OUTPUTS
   
   
   
@@ -193,13 +214,16 @@ server <- shinyServer(function(input, output) {
     
   })
   
+  
+  
+  
   #This displays a table of the data held in the uploaded file
   output$dataTable <- renderTable({
     if (is.null(data())) {
       return(NULL)
     } else {
       
-      data()}
+      pData()}
     
   })
   
@@ -213,6 +237,13 @@ server <- shinyServer(function(input, output) {
       summary(data())}
     
   })
+  
+  
+
+  
+  
+  
+  
   
   
   
@@ -250,21 +281,23 @@ server <- shinyServer(function(input, output) {
   })
   
   
-  lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)),  data = data(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
+  
+  lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)), data = data(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
   
   langReport <- reactive({langReport <- summary(lang())})
   Qmax <- reactive({Qmax <- langReport()$coefficients [1,1]
-  Qmax <- round(Qmax, digits = 4)
-  }) 
+                    Qmax <- round(Qmax, digits = 4)}) 
+  
   QmaxSE <- reactive({QmaxSE <-langReport()$coefficients [1,2]})
   QmaxE1 <- reactive({Qmax() + QmaxSE()})
   QmaxE2 <- reactive({Qmax() - QmaxSE()})
   
   k <- reactive({k <- langReport()$coefficients [2,1]
-  k <- round(k, digits = 4)})
+                 k <- round(k, digits = 4)})
   kSE <- reactive({langReport()$coefficients [2,2]})
   
-  # Goodness of Fit Statistic ( E )
+ 
+   # Goodness of Fit Statistic ( E )
   
   E <- reactive({
     
@@ -285,22 +318,7 @@ server <- shinyServer(function(input, output) {
     
   })
   
-  
-  #Log Transforming Y
-  
-  
-  
-  logData <- reactive({
-    
-    logData <- data()
-    absY <- abs(data()$Y)
-    logData$Y <- log(absY)
-    
-  })
-  
-  
-  
-  
+
   
   
   # Langmuir Output   
