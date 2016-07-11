@@ -7,13 +7,13 @@
 
 <body>
 
-The intention of this app is to facilitate the fitting of sorption data to the Langmuir Equation. 
+<br/>
+To try out the web app here: <a href="https://wessport.shinyapps.io/Langmuir-Shiny-App/">Langmuir Web App</a>
+<br/>
+The intention of this app is to facilitate the fitting of sorption data to the Langmuir Equation: 
 <br/>
 <br/>
-<center><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/ff46dbc864b28f66c75968f5894751c20f08f251"></center>
-<br/>
-<br/>
-You can see the Langmuir app in action at https://wessport.shinyapps.io/Langmuir-Shiny-App/
+<center><img src="http://www.HostMath.com/Show.aspx?Code=Re%3D%20%5Cfrac%7Bk%5Ccdot%20Qmax%20%5Ccdot%20Xf%7D%7B1%2Bk%20%5Ccdot%20Xf%7D"></center>
 <br/>
 
 <h5>Guide:</h5>
