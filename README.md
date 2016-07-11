@@ -1,14 +1,14 @@
 # Langmuir Shiny App ReadMe
 <br/>
 <head>
-<h3>This is a repository for all of the files associated with building a Langmuir Shinny App in R. </h3>
+<h3>To try out the web app click here: <a href="https://wessport.shinyapps.io/Langmuir-Shiny-App/">Langmuir Web App</a> </h3>
 <br/>
 </head>
 
 <body>
 
 <br/>
-To try out the web app click here: <a href="https://wessport.shinyapps.io/Langmuir-Shiny-App/">Langmuir Web App</a>
+This is a repository for development files associated with the Langmuir Shinny App in R.
 <br/>
 <br/>
 The intention of this app is to facilitate the fitting of sorption data to the Langmuir Equation: 
