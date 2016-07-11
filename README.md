@@ -8,7 +8,7 @@
 <body>
 
 <br/>
-To try out the web app here: <a href="https://wessport.shinyapps.io/Langmuir-Shiny-App/">Langmuir Web App</a>
+To try out the web app click here: <a href="https://wessport.shinyapps.io/Langmuir-Shiny-App/">Langmuir Web App</a>
 <br/>
 <br/>
 The intention of this app is to facilitate the fitting of sorption data to the Langmuir Equation: 
