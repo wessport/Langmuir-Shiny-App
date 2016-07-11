@@ -6,7 +6,8 @@
 
 <body>
 <h2>User Guide:</h2>
-<br/>
+Visit http://wessport.github.io/Langmuir-Shiny-App/ for the web version of this ReadME.
+<br>
 The intention of this app is to facilitate the fitting of sorption data to the <b>Langmuir Equation</b>: 
 <br>
 <br>
