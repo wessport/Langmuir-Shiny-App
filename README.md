@@ -13,8 +13,16 @@ The intention of this app is to facilitate the fitting of sorption data to the <
 <br>
 <br>
 <center><a href="https://www.codecogs.com/eqnedit.php?latex=Re=&space;\frac{k\cdot&space;Qmax&space;\cdot&space;Xf}{1&plus;k&space;\cdot&space;Xf}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Re=&space;\frac{k\cdot&space;Qmax&space;\cdot&space;Xf}{1&plus;k&space;\cdot&space;Xf}" title="Re= \frac{k\cdot Qmax \cdot Xf}{1+k \cdot Xf}" /></a></center>
-<br/>
+<br>
+<br>
+<b>Where</b><ul> 
+<li> RE is the amount of molecule or ion (sorptive) adsorbed or desorbed (mg / kg soil)</li> 
+<li> Xf is the final measured equilibrium solution concentration (mg P / L soln)</li> 
+<li> Qmax is the maximum sorption capacity (mg P / kg soil)</li>
+<li> K is the binding affinity coefficient (L / mg)</li>
+(Mayes et al. 2012)</ul>
 
+<br>
 To try out an example of the app functionality click the Example Sorption Data box. This will load example Phosphorus sorption data of an Ultisol from Tennessee. 
 
 
