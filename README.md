@@ -15,21 +15,29 @@ The intention of this app is to facilitate the fitting of sorption data to the <
 
 To try out an example of the app functionality click the Example Sorption Data box. This will load example Phosphorus sorption data of an Ultisol from Tennessee. 
 
-<img src="https://www.dropbox.com/s/vepfhgljlb221kn/Screen%20Shot%202016-07-11%20at%201.png?dl=0" alt="IMAGE 1" style="width:128px;height:128px;">
+
+<img src="https://dl.dropboxusercontent.com/s/vepfhgljlb221kn/Screen%20Shot%202016-07-11%20at%201.png?dl=0" alt="IMAGE 1" style="width:64px;height:64px;">
 
 You can upload your own sorption data by selecting the Choose File input. <b>Maximum file size 5MB</b>. 
 <br><b>IMPORTANT:</b> Be sure to signify if your data has headers. The default is Headers = FALSE. 
-
-<img src="https://www.dropbox.com/s/l8zlgn27u4uq71m/Screen%20Shot%202016-07-11%20at%202.png?dl=0" alt="IMAGE 2" style="width:128px;height:128px;">
-
-After uploading your sorption data, or electing to use the example data, a plot of the molecule or ion sorbed to the sorbent (solid sruface) versus the equilibrium concentration of the molecule or ion remaining in solution will be generated.
+<br>
+<br>
+<img src="https://dl.dropboxusercontent.com/s/l8zlgn27u4uq71m/Screen%20Shot%202016-07-11%20at%202.png?dl=0" alt="IMAGE 2" style="width:128px;height:128px;">
+<br>
+<br>
+After uploading your sorption data, or electing to use the example data, a plot of the molecule or ion sorbed to the sorbent (solid sruface) versus the equilibrium concentration of the molecule or ion remaining in solution will be generated.<br>
+<br>
+<br>
+<img src="https://dl.dropboxusercontent.com/s/9yeu4ptp606mi3i/Screen%20Shot%202016-07-11%20at%202.28.02%20PM.png?dl=0" alt="IMAGE 3" style="width:128px;height:128px;">
+<br>
+<br>
 <br> You may then select between 5 separate tab panels that provide you with various information
   <h5>Tab Panels:</h5>
   <ul>
   <li>Residuals of Fit<ul>
     <br> This tab presents the user with a plot of the residuals of the fit of their sorption data to the Langmuir equation i.e. how well does the curve fit the observed data. This is useful for illustrating which data points are ill-conforming.
     <br><b>NOTE:</b> Do your residuals resemble a "fan-shape"?
-    <br><img src="https://www.dropbox.com/s/l8zlgn27u4uq71m/Screen%20Shot%202016-07-11%20at%203.png?dl=0" alt="IMAGE 3" style="width:128px;height:128px;">
+    <br><img src="https://dl.dropboxusercontent.com/s/pqirmjti49ywk30/Screen%20Shot%202016-07-11%20at%204.png?dl=0" alt="IMAGE 3" style="width:128px;height:128px;">
     <br>If so, you may want to consider a log-transformation of your dependent varibles. This can be done by returning to the 'plot tab' and selecting the 'log-transform' checkbox underneath your original plot. To learn more about this technique please visit the National Institute of Standards and Technology <a href="http://www.itl.nist.gov/div898/handbook/pri/section2/pri24.htm">Engineering and Statistics Handbook</a>.
       </ul></li>
 
