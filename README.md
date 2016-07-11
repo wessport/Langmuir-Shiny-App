@@ -16,10 +16,10 @@ The intention of this app is to facilitate the fitting of sorption data to the <
 <br>
 <br>
 <b>Where</b><ul> 
-<li> RE is the amount of molecule or ion (sorptive) adsorbed or desorbed (mg / kg soil)</li> 
-<li> Xf is the final measured equilibrium solution concentration (mg P / L soln)</li> 
-<li> Qmax is the maximum sorption capacity (mg P / kg soil)</li>
-<li> K is the binding affinity coefficient (L / mg)</li>
+<li> <i>RE</i>  is the amount of molecule or ion (S, sorptive) adsorbed or desorbed (mg S/ kg soil)</li> 
+<li> <i>Xf</i>  is the final measured equilibrium solution concentration (mg S / L soln)</li> 
+<li> <i>Qmax</i>  is the maximum sorption capacity (mg S / kg soil)</li>
+<li> <i>K</i>  is the binding affinity coefficient (L / mg)</li>
 (Mayes et al. 2012)</ul>
 
 <br>
