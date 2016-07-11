@@ -13,7 +13,7 @@ To try out the web app here: <a href="https://wessport.shinyapps.io/Langmuir-Shi
 The intention of this app is to facilitate the fitting of sorption data to the Langmuir Equation: 
 <br/>
 <br/>
-<center><img src="http://www.HostMath.com/Show.aspx?Code=Re%3D%20%5Cfrac%7Bk%5Ccdot%20Qmax%20%5Ccdot%20Xf%7D%7B1%2Bk%20%5Ccdot%20Xf%7D"></center>
+<center><a href="https://www.codecogs.com/eqnedit.php?latex=Re=&space;\frac{k\cdot&space;Qmax&space;\cdot&space;Xf}{1&plus;k&space;\cdot&space;Xf}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Re=&space;\frac{k\cdot&space;Qmax&space;\cdot&space;Xf}{1&plus;k&space;\cdot&space;Xf}" title="Re= \frac{k\cdot Qmax \cdot Xf}{1+k \cdot Xf}" /></a>/center>
 <br/>
 
 <h5>Guide:</h5>
