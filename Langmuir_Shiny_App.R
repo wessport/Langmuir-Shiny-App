@@ -375,7 +375,7 @@ server <- shinyServer(function(input, output, session) {
   output$downloadPlot <- downloadHandler(
     filename = paste(input$title, " ", date(),".png", sep =""),
     content = function(file) {
-      png(file)
+      png(file, width = 4, height = 4, units = 'in', res = 300)
       plotIsotherm()
       dev.off()
     })    
@@ -421,7 +421,7 @@ server <- shinyServer(function(input, output, session) {
   output$downloadResidPlot <- downloadHandler(
     filename = paste("Plot of Residuals", " ", date(),".png", sep =""),
     content = function(file) {
-      png(file)
+      png(file, width = 4, height = 4, units = 'in', res = 300)
       plotResid()
       dev.off()
     })    
