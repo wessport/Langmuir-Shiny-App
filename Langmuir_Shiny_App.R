@@ -77,8 +77,10 @@ ui <- shinyUI(fluidPage( theme = shinytheme("united"),
                                  plotOutput("graph"),
                                  sliderInput("yAxis", "Adjust Y-Axis", 0, 10000, 4000),
                                  checkboxInput(inputId = 'logTrans', label = 'Log Transform Dependent Variable', value = FALSE),
-                                 textOutput("Qmax"), 
+                                 textOutput("Qmax"),
+                                 textOutput("QmaxSE"),
                                  textOutput("k"),
+                                 textOutput("kSE"),
                                  textOutput("E"),
                                  downloadButton("downloadPlot", "Download Plot as PNG")),
                         tabPanel(inputId="tab2", "Residuals of Fit", plotOutput("graphResid"),
@@ -290,13 +292,15 @@ server <- shinyServer(function(input, output, session) {
   Qmax <- reactive({Qmax <- langReport()$coefficients [1,1]
                     Qmax <- round(Qmax, digits = 4)}) 
   
-  QmaxSE <- reactive({QmaxSE <-langReport()$coefficients [1,2]})
+  QmaxSE <- reactive({QmaxSE <-langReport()$coefficients [1,2]
+                      QmaxSE <- round(QmaxSE, digits = 4)})
   QmaxE1 <- reactive({Qmax() + QmaxSE()})
   QmaxE2 <- reactive({Qmax() - QmaxSE()})
   
   k <- reactive({k <- langReport()$coefficients [2,1]
                  k <- round(k, digits = 4)})
-  kSE <- reactive({langReport()$coefficients [2,2]})
+  kSE <- reactive({kSE <- langReport()$coefficients [2,2]
+                   kSE <- round(kSE, digits = 4)})
   
  
 # Goodness of Fit Statistic ( E )
@@ -329,8 +333,12 @@ server <- shinyServer(function(input, output, session) {
     Qmax <- round(Qmax, digits = 4)
     print(paste(c("Maximum Sorption = ", Qmax, collapse = "")))})
   
+  output$QmaxSE <- renderText({print(paste(c("Maximum Sorption Standard Error = ",QmaxSE()), collapse = ""))})
+
   output$k <- renderText({print(paste(c("Binding Coefficient = ",k()), collapse = ""))})
-  
+ 
+  output$kSE <- renderText({print(paste(c("Binding Coefficient Standard Error = ",kSE()), collapse = ""))})
+
   output$E <- renderText({print(paste(c("Goodness of Fit = ",E()), collapse = ""))})
   
 
