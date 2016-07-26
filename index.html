@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>Langmuir Sorption Modeler Shiny App by wessport</title>
+    <title>Langmuir Sorption Modeler by wessport</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -11,48 +11,68 @@
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">Langmuir Sorption Modeler Shiny App</h1>
-      <h2 class="project-tagline">To download the App files click below. </h2>
+      <h1 class="project-name">Langmuir Sorption Modeler </h1>
+      <h2 class="project-tagline">This is a repository for all of the files associated with this R Shiny App.</h2>
       <a href="https://github.com/wessport/Langmuir-Shiny-App" class="btn">View on GitHub</a>
       <a href="https://github.com/wessport/Langmuir-Shiny-App/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/wessport/Langmuir-Shiny-App/tarball/master" class="btn">Download .tar.gz</a>
     </section>
 
     <section class="main-content">
-      <p><br>
-</p>
+      <h1>
+<a id="shiny-web-app-readme" class="anchor" href="#shiny-web-app-readme" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shiny Web App ReadMe</h1>
 
-<h1>
-<a id="welcome" class="anchor" href="#welcome" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome!</h1>
+<p></p>
 
 <h3>
-<a id="to-try-out-the-web-app-click-here-langmuir-web-app-" class="anchor" href="#to-try-out-the-web-app-click-here-langmuir-web-app-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To try out the web app click here: <a href="https://wessport.shinyapps.io/Langmuir-Shiny-App/">Langmuir Web App</a> </h3>
+<a id="to-try-out-the-web-app-click-here-langmuir-sorption-modeler-web-app" class="anchor" href="#to-try-out-the-web-app-click-here-langmuir-sorption-modeler-web-app" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To try out the web app click here: <a href="https://wessport.shinyapps.io/Langmuir-Shiny-App/">Langmuir Sorption Modeler Web App</a>
+</h3>
 
 <p></p>
 
 <p></p>
 
 <h2>
-<a id="user-guide" class="anchor" href="#user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>User Guide:</h2>
+<a id="welcome" class="anchor" href="#welcome" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome</h2>
 
-<p>Visit <a href="http://wessport.github.io/Langmuir-Shiny-App/">http://wessport.github.io/Langmuir-Shiny-App/</a> for the web version of this ReadME.
+<p><br>
+The program files to this app can be downloaded in a zip file above. In order to run this program on your own device (Mac and PC compatible), you must have the latest version of the computation programming language R downloaded. You can find the latest version here: <a href="https://mirrors.nics.utk.edu/cran/">Download and Install R - University of Tennessee Mirror</a>. <br>
+<br>
+Likewise, you will need the latest version of RStudio which you can find here: <a href="https://www.rstudio.com/products/RStudio/">Download RStudio Desktop</a>.
+<br>
+<br></p>
+
+<h3>
+<a id="running-the-langmuir-sorption-modeler-on-your-mac-or-pc" class="anchor" href="#running-the-langmuir-sorption-modeler-on-your-mac-or-pc" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running the Langmuir Sorption Modeler on your Mac or PC</h3>
+
+<p>Once your aforementioned downloads are complete and installed, to run the app on your computer, simply open RStudio. Then select File -&gt; File Open and navigate to the Zip file you downloaded earlier. After extracting those files, select the file "Langmuir_Shiny_App.R". RStudio will open the program file which you can then run locally on your computer by clicking the green "Run App" button which should launch the interactive Langmuir Sorption Modeler app.<br>
+<br>
+<br></p>
+
+<h2>
+<a id="app-guide" class="anchor" href="#app-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>App Guide:</h2>
+
+<p><br>
+<b>NOTE:</b> The web app may only be used for 25 active hours/mo as a condition of the free hosting and security service  provided by RStudio. So when not using the app, please close your browser tab in order to maximize app usage. If you require the Langmuir Sorption Modeler App for more than 25 active hours/mo, or the hour limit has already been reached for this month - please consider downloading and using the app locally as described above. 
 <br>
 <br>
-The intention of this app is to facilitate the fitting of sorption data to the <b>Langmuir Equation</b>: 
+The intention of this web app is to facilitate the fitting of sorption data to the <b>Langmuir Equation</b>: 
 <br>
+<br></p>
+
+<div><a href="https://www.codecogs.com/eqnedit.php?latex=Re=&amp;space;%5Cfrac%7Bk%5Ccdot&amp;space;Qmax&amp;space;%5Ccdot&amp;space;Xf%7D%7B1&amp;plus;k&amp;space;%5Ccdot&amp;space;Xf%7D"><img src="https://latex.codecogs.com/gif.latex?Re=&amp;space;%5Cfrac%7Bk%5Ccdot&amp;space;Qmax&amp;space;%5Ccdot&amp;space;Xf%7D%7B1&amp;plus;k&amp;space;%5Ccdot&amp;space;Xf%7D" title="Re= \frac{k\cdot Qmax \cdot Xf}{1+k \cdot Xf}"></a></div>
+
+<p><br>
 <br>
-</p><a href="https://www.codecogs.com/eqnedit.php?latex=Re=&amp;space;%5Cfrac%7Bk%5Ccdot&amp;space;Qmax&amp;space;%5Ccdot&amp;space;Xf%7D%7B1&amp;plus;k&amp;space;%5Ccdot&amp;space;Xf%7D"><img src="https://latex.codecogs.com/gif.latex?Re=&amp;space;%5Cfrac%7Bk%5Ccdot&amp;space;Qmax&amp;space;%5Ccdot&amp;space;Xf%7D%7B1&amp;plus;k&amp;space;%5Ccdot&amp;space;Xf%7D" title="Re= \frac{k\cdot Qmax \cdot Xf}{1+k \cdot Xf}"></a>
-<br>
-<br>
-<b>Where</b><ul> 
-<li> <i>RE</i>  is the amount of molecule or ion (S, sorptive) adsorbed or desorbed (mg S/ kg soil)</li> 
-<li> <i>Xf</i>  is the final measured equilibrium solution concentration (mg S / L soln)</li> 
-<li> <i>Qmax</i>  is the maximum sorption capacity (mg S / kg soil)</li>
-<li> <i>K</i>  is the binding affinity coefficient (L / mg)</li>
+<b>Where</b></p><ul> 
+<li> <i>RE</i>   is the amount of molecule or ion (S, sorptive) adsorbed or desorbed (mg S/ kg soil)</li> 
+<li> <i>Xf</i>   is the final measured equilibrium solution concentration (mg S / L soln)</li> 
+<li> <i>Qmax</i>   is the maximum sorption capacity (mg S / kg soil)</li>
+<li> <i>K</i>   is the binding affinity coefficient (L / mg)</li>
 (Mayes et al. 2012)</ul>
 
 <p><br>
-To try out an example of the app functionality click the Example Sorption Data box. This will load example Phosphorus sorption data of an Ultisol from Tennessee. </p>
+To try out an example of the app functionality, click the Example Sorption Data box. This will load an example dataset of Phosphorus sorption onto soil particles of an Ultisol from collected from Tennessee. </p>
 
 <p><img src="https://dl.dropboxusercontent.com/s/vepfhgljlb221kn/Screen%20Shot%202016-07-11%20at%201.png?dl=0" alt="IMAGE 1"></p>
 
@@ -63,21 +83,28 @@ To try out an example of the app functionality click the Example Sorption Data b
 <img src="https://dl.dropboxusercontent.com/s/l8zlgn27u4uq71m/Screen%20Shot%202016-07-11%20at%202.png?dl=0" alt="IMAGE 2">
 <br>
 <br>
-After uploading your sorption data, or electing to use the example data, a plot of the molecule or ion sorbed to the sorbent (solid sruface) versus the equilibrium concentration of the molecule or ion remaining in solution will be generated.<br>
+After uploading your sorption data, or electing to use the example data, a plot of the molecule or ion sorbed to the sorbent (solid surface) versus the equilibrium concentration of the molecule or ion remaining in solution will be generated. Also displayed below the plot will be outputs of the sorption parameters: Maximum Sorption, the Binding Coefficient, and the Goodness of Fit statistic.<br>
+<br> 
+Feel free to change the plot title, and axis labels as necessary to reflect your data. You can even adjust the y-axis limits with the slider option below the plot if the default limits are not adequate. Also you may download a PNG of your plot by clicking the Download button.<br>
 <br>
 <br>
 <img src="https://dl.dropboxusercontent.com/s/9yeu4ptp606mi3i/Screen%20Shot%202016-07-11%20at%202.28.02%20PM.png?dl=0" alt="IMAGE 3">
 <br>
 <br>
-<br> You may then select between 5 separate tab panels that provide you with various information.
+<br> You may then select between 5 additional tab panels that provide you with various information.
   </p><h3>
 <a id="tab-panels" class="anchor" href="#tab-panels" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tab Panels:</h3>
   <ul>
   <li>Residuals of Fit<ul>
     <br> This tab presents the user with a plot of the residuals of the fit of their sorption data to the Langmuir equation i.e. how well does the curve fit the observed data. This is useful for illustrating which data points are ill-conforming.
+    <br>
     <br><b>NOTE:</b> Do your residuals resemble a "fan-shape"?
+    <br>
     <br><img src="https://dl.dropboxusercontent.com/s/pqirmjti49ywk30/Screen%20Shot%202016-07-11%20at%204.png?dl=0" alt="IMAGE 3">
-    <br>If so, you may want to consider a log-transformation of your dependent varibles. This can be done by returning to the 'plot tab' and selecting the 'log-transform' checkbox underneath your original plot. To learn more about this technique please visit the National Institute of Standards and Technology <a href="http://www.itl.nist.gov/div898/handbook/pri/section2/pri24.htm">Engineering and Statistics Handbook</a>.
+    <br>
+    <br>If so, you may want to consider a log-transformation of your dependent variables. This can be done by returning to the "plot-tab" and selecting the "log-transform" checkbox underneath your original plot. 
+    <br>
+    <br>To learn more about this technique please visit the National Institute of Standards and Technology <a href="http://www.itl.nist.gov/div898/handbook/pri/section2/pri24.htm">Engineering and Statistics Handbook</a>.
       </ul>
 </li>
 
@@ -89,23 +116,30 @@ After uploading your sorption data, or electing to use the example data, a plot 
 
 <p></p>
 <li>Data Summary<ul>
-    <br> A summary of the user uploaded data including the Minimum, 1st Quantile, Median,Mean, 3rd Quantile, and Maximum for the "X" column and "Y" column. 
+    <br> A statistical summary of the dataset including: the Minimum, 1st Quantile, Median, Mean, 3rd Quantile, and Maximum for the "X" and "Y" column of the data table. 
     </ul>
 </li>
     <br>
-  <li>File Information</li>
+  <li>File Information<ul>
+    <br> Basic file path information of the user uploaded dataset.<br>
+    </ul>
+</li>
   <br>
-  <li>App Credits</li>
+  <li>App Credits<ul>
+    <br> App acknowledgements.<br>
+    </ul>
+</li>
 </ul>
 
 <p><br>
 <br>
-<b>Contents of Langmuir App download package include:</b> The source code for the Langmuir Shiny App, a text document of my code scrap book during the app development, the R Studio project file, and the Langmuir Shiny App License. </p>
+<b>Contents of Langmuir App download package include:</b> The source code for the Langmuir Shiny App, a text document of my code scrap book during the app development, the R Studio project file, and the Langmuir Shiny App License. 
+<br></p>
 
 <p></p>
 
       <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/wessport/Langmuir-Shiny-App">Langmuir Sorption Modeler Shiny App</a> is maintained by <a href="https://github.com/wessport">wessport</a>.</span>
+        <span class="site-footer-owner"><a href="https://github.com/wessport/Langmuir-Shiny-App">Langmuir Sorption Modeler </a> is maintained by <a href="https://github.com/wessport">wessport</a>.</span>
 
         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
