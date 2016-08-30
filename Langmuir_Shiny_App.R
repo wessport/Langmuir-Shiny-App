@@ -286,7 +286,7 @@ server <- shinyServer(function(input, output, session) {
   })
 
   
-  lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)), data = pData(), start = list(Q = pQmax(), k = 0.01), algorith = "port")})  
+  lang <- reactive({lang <- nls(formula = Y ~ (Q*k*X)/(1+(k*X)), data = pData(), start = list(Q = pQmax(), k = pK()), algorith = "port")})  
   
   langReport <- reactive({langReport <- summary(lang())})
   Qmax <- reactive({Qmax <- langReport()$coefficients [1,1]
