@@ -279,7 +279,7 @@ server <- shinyServer(function(input, output, session) {
     
     pK <- 1 / ((((a*b)-(c*d))/((e*b)-((c)^2)))*pQmax())
     
-    if(pK < 0) {pK <- 0.01}
+    if(pK < 0.1) {pK <- 0.1}
     
     pK
     
